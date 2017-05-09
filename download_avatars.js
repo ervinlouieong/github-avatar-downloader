@@ -13,13 +13,13 @@ if (!(process.argv[2] && process.argv[3])) {
   function getRepoContributors(repoOwner, repoName, cb) {
 
     var requestOptions = {
-      uri: 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors',
-      headers: {"User-Agent" : "GitHub Avatar Downloader - Student Project"}
-    }
+      uri: 'https://' + GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors',
+      headers: {"User-Agent": "GitHub Avatar Downloader - Student Project"}
+    };
 
-    request.get(requestOptions, cb)
+    request.get(requestOptions, cb);
 
-  };
+  }
 
   function callback (err, results, body) {
     if (err) {
@@ -29,11 +29,11 @@ if (!(process.argv[2] && process.argv[3])) {
     var parsedResults = JSON.parse(body);
     for (var i in parsedResults){
       var compiledAvatarUrl = parsedResults[i].avatar_url;
-      downloadImageByURL(compiledAvatarUrl,`avatars/${i}.jpg`);
+      downloadImageByURL(compiledAvatarUrl, `avatars/${i}.jpg`);
     }
-  };
+  }
 
-  getRepoContributors(process.argv[2],process.argv[3],callback);
+  getRepoContributors(process.argv[2], process.argv[3], callback);
 
   function downloadImageByURL(url, filePath) {
     request.get(url)
@@ -45,8 +45,8 @@ if (!(process.argv[2] && process.argv[3])) {
            console.log('Downloading image...');
          })
          .on('end', function() {
-            console.log('Downloading Complete.');
+           console.log('Downloading Complete.');
          })
-         .pipe(fs.createWriteStream(filePath))
+         .pipe(fs.createWriteStream(filePath));
   }
 }
