@@ -29,7 +29,7 @@ function callback (err, results, body) {
   }
 };
 
-getRepoContributors("jquery","jquery",callback);
+getRepoContributors(process.argv[2],process.argv[3],callback);
 
 function downloadImageByURL(url, filePath) {
   request.get(url)
