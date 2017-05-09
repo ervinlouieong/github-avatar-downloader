@@ -1,4 +1,5 @@
 var request = require('request');
+var fs = require('fs');
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 
@@ -24,14 +25,11 @@ function callback (err, results, body) {
   var parsedResults = JSON.parse(body);
   for (var i in parsedResults){
     var compiledAvatarUrl = parsedResults[i].avatar_url;
-    //console.log(compiledAvatarUrl);
+    downloadImageByURL(compiledAvatarUrl,`avatars/${i}.jpg`);
   }
-
 };
 
 getRepoContributors("jquery","jquery",callback);
-
-var fs = require('fs');
 
 function downloadImageByURL(url, filePath) {
   request.get(url)
@@ -48,5 +46,7 @@ function downloadImageByURL(url, filePath) {
        .pipe(fs.createWriteStream(filePath))
 }
 
-downloadImageByURL('https://avatars3.githubusercontent.com/u/1615?v=3','images/avatar.jpg');
+function print(avatar){
+  return avatar;
+};
 
