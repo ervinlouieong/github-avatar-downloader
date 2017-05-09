@@ -23,14 +23,30 @@ function callback (err, results, body) {
   }
   var parsedResults = JSON.parse(body);
   for (var i in parsedResults){
-    console.log(parsedResults[i].avatar_url);
+    var compiledAvatarUrl = parsedResults[i].avatar_url;
+    //console.log(compiledAvatarUrl);
   }
+
 };
-
-
 
 getRepoContributors("jquery","jquery",callback);
 
+var fs = require('fs');
 
+function downloadImageByURL(url, filePath) {
+  request.get(url)
+       .on('error', function (err) {
+         throw err;
+       })
+       .on('response', function (response) {
+         console.log('Response Status Code: ', response.statusCode);
+         console.log('Downloading image...');
+       })
+       .on('end', function() {
+          console.log('Downloading Complete.');
+       })
+       .pipe(fs.createWriteStream(filePath))
+}
 
+downloadImageByURL('https://avatars3.githubusercontent.com/u/1615?v=3','images/avatar.jpg');
 
